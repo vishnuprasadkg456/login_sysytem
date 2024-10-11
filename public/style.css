@@ -1,0 +1,32 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+body{
+    font-family: "Open Sans", sans-serif;
+    background-image:url('/assets/background-login.jpg') ;
+    background-size:cover ;
+    background-repeat:no-repeat;
+}
+
+.center-div{
+    padding-top: 8%;
+}
+
+.btn.btn-success{
+    
+    padding: .3em 2em;
+}
+
+form{
+    padding: 0 1em;
+}
+
+#login .title > span{
+  font-size: .8em;
+}
+
+.custom-width-height{
+    width:350px !important;
+   
+
+}
