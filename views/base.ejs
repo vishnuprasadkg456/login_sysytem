@@ -9,7 +9,12 @@
                 <div class="alert alert-success text-center">
                     <%= logout %>
                 </div>
-                <%}%>
+            <%}%>
+            <% if(locals.alert){%>
+                <div class="alert alert-danger text-center">
+                    <%= alert %>
+                </div>
+            <%}%>
             
         </div>
         <form action="/route/login" method="POST" class="pt-3">
@@ -25,5 +30,6 @@
     </div>
   </div>
 
+  
 
     <%-include(`footer`)-%>
