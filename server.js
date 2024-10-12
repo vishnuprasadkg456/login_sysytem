@@ -1,8 +1,9 @@
 const express= require('express');
 const path = require('path');
-const bodyparser=require('body-parser');
+const bodyParser=require('body-parser');
 const session=require("express-session");
 const {v4:uuidv4} = require('uuid')
+const nocache = require('nocache');
 const router = require('./router');
 
 const app= express();
@@ -10,15 +11,19 @@ const app= express();
 
 
 const port=process.env.PORT||3000;
+app.set('view engine','ejs');
 
-app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({extended:true}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(nocache());
 
 
 
 //load static assets
 app.use('/static',express.static(path.join(__dirname,'public')));
 app.use('/assets',express.static(path.join(__dirname,'public/assets')));
+
+// session management
 app.use(session({
     secret:uuidv4(),
     resave:false,
@@ -26,11 +31,16 @@ app.use(session({
 }));
 
 app.use('/route',router);
-app.set('view engine','ejs');
-//home route
+
+
+
 app.get('/',(req,res)=>{
-    res.render('base',{title:"Login System"});
-})
+    if(req.session.user){
+        res.render('dashboard',{user:req.session.user});
+    }else{
+    res.render('base',{titl:'Login System'});
+    }
+});
 
 app.listen(port,()=>{
     console.log("Listening to the server on http://localhost:3000")
